@@ -5,6 +5,21 @@
 #include <ResetDetector.h>  //prefer this works more reliable than doubleResetDetector
 //#include <DoubleResetDetector.h>
 
+// Dependency Graph
+// |-- <DNSServer> 1.1.1
+// |   |-- <ESP8266WiFi> 1.0
+// |-- <ESP8266WebServer> 1.0
+// |   |-- <ESP8266WiFi> 1.0
+// |-- <ESP8266WiFi> 1.0
+// |-- <ResetDetector> 1.0.3
+// |   |-- <EEPROM> 1.0
+// |-- <WifiManager> 0.15.0
+// |   |-- <DNSServer> 1.1.1
+// |   |   |-- <ESP8266WiFi> 1.0
+// |   |-- <ESP8266WebServer> 1.0
+// |   |   |-- <ESP8266WiFi> 1.0
+// |   |-- <ESP8266WiFi> 1.0
+
 #define PORT 80
 ESP8266WebServer server(PORT); //listening server
 
