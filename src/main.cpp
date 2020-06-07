@@ -28,8 +28,12 @@ void handleOFF();
 void handle404();
 
 //const char MAIN_page[] PROGMEM = R"=====(<html><body>Ciclk to turn <a href="\on">LED ON</a><br>Ciclk to turn <a href="\off">LED OFF</a><br></body></html>)=====";
-//above does not work and causes esp8266 to crash
-const char MAIN_page[] = "<html><body>Click to turn <a href=\"on\">LED ON</a><br>Ciclk to turn <a href=\"off\">LED OFF</a><br></body></html>";
+//RAW String does not work and causes esp8266 to crash :(
+const char MAIN_page[] = "<html><body>Click to turn\
+                        <a href=\"on\">LED ON</a>\
+                        <br>Click to turn \
+                        <a href=\"off\">LED OFF</a>\
+                        <br></body></html>";
 
 const int PIN_LED = 2;
 
