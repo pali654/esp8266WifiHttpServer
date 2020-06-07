@@ -2,16 +2,11 @@
 #include <WiFiManager.h>         //https://github.com/tzapu/WiFiManager
 #include <ESP8266WebServer.h>
 #include <DNSServer.h>
-//#include <ResetDetector.h>  //prefer this
-#include <DoubleResetDetector.h>
+#include <ResetDetector.h>  //prefer this works more reliable than doubleResetDetector
+//#include <DoubleResetDetector.h>
 
 #define PORT 80
 ESP8266WebServer server(PORT); //listening server
-
-#define DRD_TIMEOUT 2
-// RTC Memory Address for the DoubleResetDetector to use
-#define DRD_ADDRESS 0
-DoubleResetDetector drd(DRD_TIMEOUT, DRD_ADDRESS); //this is not nearly as reliable as ResetDetector
 
 const int PIN_LED = 2;
 
@@ -22,6 +17,7 @@ void handle404();
 
 //const char MAIN_page[] PROGMEM = R"=====(<html><body>Ciclk to turn <a href="\on">LED ON</a><br>Ciclk to turn <a href="\off">LED OFF</a><br></body></html>)=====";
 //this stores in the flash as static
+//above does not work and causes esp8266 to crash
 const char MAIN_page[] = "<html><body>Click to turn <a href=\"on\">LED ON</a><br>Ciclk to turn <a href=\"off\">LED OFF</a><br></body></html>";
 
 void blinkLED (int delayMS, int count, const int pinLED) {
@@ -60,7 +56,7 @@ void handle404(){
 
 void setup() {
 
-    //int resetCounter = ResetDetector::execute(2000); //capture number of resets during 2 seconsd
+    int resetCounter = ResetDetector::execute(2000); //capture number of resets during 2 seconds
 
     Serial.begin(115200);
 
@@ -74,7 +70,8 @@ void setup() {
     //WiFi.printDiag(Serial);
 
     //reset Wifi settings or initial setup
-    if (drd.detectDoubleReset()) {
+    //only when reset buttons pressed 2 times or more
+    if (resetCounter >= 2) {
         wifiManager.resetSettings();
         //twice to indicate in setup mode
         blinkLED(500, 2, PIN_LED);
