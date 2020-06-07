@@ -3,6 +3,10 @@
 		{
 			"name": "wifi",
 			"path": ".."
+		},
+		{
+			"name": "uno_lcd_snake",
+			"path": "../../uno_lcd_snake"
 		}
 	],
 	"settings": {}
