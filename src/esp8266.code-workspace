@@ -7,6 +7,10 @@
 		{
 			"name": "uno_lcd_snake",
 			"path": "../../uno_lcd_snake"
+		},
+		{
+			"name": "mq123",
+			"path": "../../mq123"
 		}
 	],
 	"settings": {}
